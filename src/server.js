@@ -1,5 +1,5 @@
 const express = require('express')
-
+const { auth } = require('express-openid-connect');
 const db = require('./config/database/db')
 const cors = require('cors')
 const dotenv = require('dotenv')
@@ -12,6 +12,17 @@ app.use(cors())
 //connect db
 db.connect()
 
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: process.env.SECRET,
+    baseURL: process.env.BASEURL,
+    clientID: process.env.CLIENTID,
+    issuerBaseURL: process.env.ISSUER,
+  };
+
+
+app.use(auth(config));
 
 
 app.use(express.json())
