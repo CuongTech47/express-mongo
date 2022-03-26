@@ -8,7 +8,6 @@ class CategoryController{
                 res.json({data : categories})
             })
             .catch(next)
-        
     }
     create(req,res,next){
         const newCategory = new Category({
@@ -16,7 +15,6 @@ class CategoryController{
             category_desc: req.body.category_desc,
             category_status: req.body.category_status,
         });
-	
 	    const savedCategory = newCategory.save();
 	    res.json(savedCategory);
     }

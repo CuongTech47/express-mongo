@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require("express")
 
-const router = express.Router();
+const router = express.Router()
 
-const categoryController = require("../controllers/CategoryController");
+const categoryController = require("../controllers/CategoryController")
 
 
 
@@ -13,4 +13,4 @@ router.delete("/delete/:id", categoryController.delete)
 router.patch("/update/:id", categoryController.update)
 //router.get("/random", userController.random);
 
-module.exports = router;
+module.exports = router
