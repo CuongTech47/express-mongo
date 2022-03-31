@@ -16,9 +16,7 @@ const Brand = new Schema({
         require: true
     },
     brand_status:{
-        type:String,
-        min:6,
-        max : 255,
+        type:Number,
         require: true
     },
 },{

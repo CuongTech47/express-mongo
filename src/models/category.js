@@ -16,9 +16,7 @@ const Category = new Schema({
         require: true
     },
     category_status:{
-        type:String,
-        min:6,
-        max : 255,
+        type:Number,
         require: true
     },
 },{
