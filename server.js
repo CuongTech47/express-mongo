@@ -1,11 +1,20 @@
 const express = require('express')
 const { auth } = require('express-openid-connect');
-const db = require('./config/database/db')
+const db = require('./api/src/config/database/db')
 const cors = require('cors')
 const dotenv = require('dotenv')
-const route = require('./routes/index')
+
+const route = require('./api/src/routes/index')
+
+
+const morgan = require('morgan')
 const app = express()
 const port = process.env.PORT || 3030;
+
+//morgan
+app.use(morgan('combined'))
+
+
 
 dotenv.config()
 app.use(cors())
@@ -29,6 +38,7 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }))
+
 
 
 
