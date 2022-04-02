@@ -12,5 +12,6 @@ router.get("/:id", categoryController.show);
 router.delete("/delete/:id", categoryController.delete)
 router.patch("/update/:id", categoryController.update)
 //router.get("/random", userController.random);
+router.get("/page/:page", categoryController.pagination)
 
 module.exports = router

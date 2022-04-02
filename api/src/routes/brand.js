@@ -10,5 +10,6 @@ router.get("/:id", brandController.show);
 router.delete("/delete/:id", brandController.delete)
 router.patch("/update/:id", brandController.update)
 //router.get("/random", userController.random);
+router.get("/page/:page", brandController.pagination)
 
 module.exports = router;

@@ -49,6 +49,21 @@ class BrandController{
             })
         
     } */
+    pagination(req , res , next) {
+        let perPage = 2 
+        let page = req.params.page || 1
+
+        Brand.find()
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec((err , categories)=>{
+            Brand.countDocuments((err , count)=>{
+                if(err) return next(err)
+                res.json({data : categories})
+            })
+        })
+
+    }
 
     
 }

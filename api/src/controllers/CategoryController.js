@@ -46,6 +46,21 @@ class CategoryController{
             })
         
     } */
+    pagination(req , res , next) {
+        let perPage = 2 
+        let page = req.params.page || 1
+
+        Category.find()
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec((err , categories)=>{
+            Category.countDocuments((err , count)=>{
+                if(err) return next(err)
+                res.json({data : categories})
+            })
+        })
+
+    }
 
     
 }
