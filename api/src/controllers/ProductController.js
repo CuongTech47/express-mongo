@@ -1,78 +1,73 @@
-const Category = require('../models/category')
+const Category = require("../models/category");
+const Brand = require("../models/brand");
+const Product = require("../models/product");
 
-const Product = require('../models/product')
-class ProductController{
-    index(req,res,next){
-        Product.find({})
-        .then(products =>{
-            res.json({data : products})
-        })
-        .catch(next)
-       
+const ProductController = {
+  //ADD PRODUCT
+  addProduct: async (req, res) => {
+    try {
+      const newProduct = new Product(req.body);
+      const savedProduct = await newProduct.save();
+      if (req.body.category) {
+        const category = Category.findById(req.body.category);
+        await category.updateOne({ $push: { products: savedProduct._id } });
+      }
+      if (req.body.brand) {
+        const brand = Brand.findById(req.body.brand);
+        await brand.updateOne({ $push: { products: savedProduct._id } });
+      }
+      res.status(200).json(savedProduct);
+    } catch (err) {
+      res.status(500).json(err);
     }
-    create(req,res,next){
-        let category_name = ""
-        Category.find(function(err , categories) {
-            categories.forEach(function(cat) {
-                category_name = cat.category_name
-            })
-        })
-        const newProduct = new Product({
-            product_name: req.body.product_name,
-            product_desc: req.body.product_desc,
-            category : req.body.product_,
-            product_image : req.body.product_image,
-            product_status: req.body.product_status,
-        });
-        const savedProduct = newProduct.save();
-        res.json(savedProduct);
-        
+  },
+  //GET ALL PRODUCTS
+  getAllProducts: async (req, res) => {
+    try {
+      const allProducts = await Product.find();
+      res.status(200).json(allProducts);
+    } catch (err) {
+      res.status(500).json(err);
     }
-    show(req,res,next){
-        Category.findById({_id: req.params.id})
-            .then(category =>{
-                res.json(category)
-            })
-        
-    }
-    delete(req,res,next){
-        Category.findByIdAndDelete({ _id: req.params.id })
-            .then(result =>{
-                res.json(result)
-        })
-    }
-    update(req,res,next){
-        Category.updateOne({_id: req.params.id}, {$set: req.body })
-            .then(category =>{
-                res.json(category)
-            })
-    }
-  /*   random(req,res,next){
-        const count = UserSchema.countDocuments();
-        const random = floor(random() * count)
-        UserSchema.findOne().skip(random)
-            .then(user =>{
-                res.json(user)
-            })
-        
-    } */
-    pagination(req , res , next) {
-        let perPage = 2 
-        let page = req.params.page || 1
+  },
 
-        Category.find()
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .exec((err , categories)=>{
-            Category.countDocuments((err , count)=>{
-                if(err) return next(err)
-                res.json({data : categories})
-            })
-        })
-
+  //GET A PRODUCTS
+  getAnProduct: async (req, res) => {
+    try {
+      const product = await Product.findById(req.params.id).populate("category").populate("brand")
+      res.status(200).json(product);
+    } catch (err) {
+      res.status(500).json(err);
     }
+  },
 
+  //UPDATE PRODUCT
+  updateProduct: async (req, res) => {
+    try {
+      const product = await Product.findById(req.params.id);
+      await product.updateOne({ $set: req.body });
+      res.status(200).json("Updated successfully!");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 
-    
-}
-module.exports = new ProductController
+  //DELETE PRODUCT
+  deleteProduct: async (req, res) => {
+    try {
+      await Category.updateMany(
+        { products: req.params.id },
+        { $pull: { books: req.params.id } }
+      )
+      await Brand.updateMany(
+        { products: req.params.id },
+        { $pull: { books: req.params.id } }
+      )
+      await Product.findByIdAndDelete(req.params.id);
+      res.status(200).json("Deleted successfully");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+};
+module.exports = ProductController;

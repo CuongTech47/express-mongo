@@ -1,70 +1,77 @@
 
 const Brand = require('../models/brand')
 
+const Product = require('../models/product')
 
-class BrandController{
-    index(req,res,next){
-        Brand.find({})
-            .then(brands =>{
-                res.json({data : brands})
-            })
-            .catch(next)
-        
-    }
-    create(req,res,next){
-        const newBrand = new Brand({
-            brand_name: req.body.brand_name,
-            brand_desc: req.body.brand_desc,
-            brand_status: req.body.brand_status,
-        });
-	
-	    const savedBrand = newBrand.save();
-	    res.json(savedBrand);
-    }
-    show(req,res,next){
-        Brand.findById({_id: req.params.id})
-            .then(brand =>{
-                res.json(brand)
-            })
-        
-    }
-    delete(req,res,next){
-        Brand.findByIdAndDelete({ _id: req.params.id })
-            .then(result =>{
-                res.json(result)
-        })
-    }
-    update(req,res,next){
-        Brand.updateOne({_id: req.params.id}, {$set: req.body })
-            .then(brand =>{
-                res.json(brand)
-            })
-    }
-  /*   random(req,res,next){
-        const count = UserSchema.countDocuments();
-        const random = floor(random() * count)
-        UserSchema.findOne().skip(random)
-            .then(user =>{
-                res.json(user)
-            })
-        
-    } */
-    pagination(req , res , next) {
-        let perPage = 2 
-        let page = req.params.page || 1
+const  BrandController = {
 
-        Brand.find()
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .exec((err , categories)=>{
-            Brand.countDocuments((err , count)=>{
-                if(err) return next(err)
-                res.json({data : categories})
-            })
-        })
+    //ADD BRAND
+    addBrand: async (req,res) => {
+        try {
+            const newBrand = new Brand(req.body)
+            const savedBrand = await newBrand.save()
+            res.status(200).json(savedBrand)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    // GET All BRAND
+    getAllBrands : async (req , res) => {
+        try {
+            const brands = await Brand.find()
+            res.status(200).json(brands)
+            
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    // GET AN BRAND
+    getAnBrand : async(req,res)=>{
+        try {
+            const brand = await Brand.findById(req.params.id).populate("products")
+            res.status(200).json(brand)
+        } catch (error) {
+            res.status(500).json(error)
+        }   
+    },
+    //UPDATE BRAND
+    updateBrand : async(req , res)=>{
+        try {
+            const brand = await Brand.findById(req.params.id)
+            await brand.updateOne({ $set: req.body });
+            res.status(200).json("Updated successfully!");
+            
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
 
+    //DELETE BRAND
+    deleteBrand : async(req,res)=>{
+        try {
+            await Product.updateMany({ brand: req.params.id }, { brand: null })
+            await Brand.findByIdAndDelete(req.params.id)
+            res.status(200).json("Deleted successfully!")
+        } catch (error) {
+            res.status(500).json(error)
+        }
     }
+    // pagination(req , res , next) {
+    //     let perPage = 2 
+    //     let page = req.params.page || 1
+
+    //     Brand.find()
+    //     .skip((perPage * page) - perPage)
+    //     .limit(perPage)
+    //     .exec((err , categories)=>{
+    //         Brand.countDocuments((err , count)=>{
+    //             if(err) return next(err)
+    //             res.json({data : categories})
+    //         })
+    //     })
+
+    // }
 
     
 }
-module.exports = new BrandController
+module.exports = BrandController

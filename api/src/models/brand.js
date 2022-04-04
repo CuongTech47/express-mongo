@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema
-const AutoIncrement = require('mongoose-sequence')(mongoose)
+// const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Brand = new Schema({
     brand_name:{
         type:String,
@@ -19,11 +19,18 @@ const Brand = new Schema({
         type:Number,
         require: true
     },
+    products:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product',
+        }
+        
+    ]
 },{
-    _id : false,
+    // _id : false,
     timestamps : true
 
 })
 
-Brand.plugin(AutoIncrement, {id : 'brand_id_couter'})
+// Brand.plugin(AutoIncrement, {id : 'brand_id_couter'})
 module.exports = mongoose.model("Brand",Brand)
