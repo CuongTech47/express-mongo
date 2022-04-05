@@ -29,7 +29,7 @@ const  BrandController = {
     getAnBrand : async(req,res)=>{
         try {
             const brand = await Brand.findById(req.params.id).populate("products")
-            res.status(200).json(brand)
+            res.status(200).json({data :brand})
         } catch (error) {
             res.status(500).json(error)
         }   

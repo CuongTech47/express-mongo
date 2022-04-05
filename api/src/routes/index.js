@@ -10,12 +10,13 @@ function route(app) {
   app.use('/api/v1/brand',brandRouter)
   app.use('/api/v1/category',categoryRouter)
 
-  app.use('/',(req,res)=>{
+  app.use('/api',(req,res)=>{
     res.send("hello api")
   })
-  
-  /* app.use("/auth",authRouter)
-  app.use('/api/v1/user',userRouter) */
+  //www
+  app.use('/',(req,res)=>{
+    res.render("index.ejs")
+  })
 
 }
 

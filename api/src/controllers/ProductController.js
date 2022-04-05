@@ -25,7 +25,7 @@ const ProductController = {
   getAllProducts: async (req, res) => {
     try {
       const allProducts = await Product.find();
-      res.status(200).json(allProducts);
+      res.status(200).json({data :allProducts});
     } catch (err) {
       res.status(500).json(err);
     }
@@ -35,7 +35,7 @@ const ProductController = {
   getAnProduct: async (req, res) => {
     try {
       const product = await Product.findById(req.params.id).populate("category").populate("brand")
-      res.status(200).json(product);
+      res.status(200).json({data :product});
     } catch (err) {
       res.status(500).json(err);
     }
