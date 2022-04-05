@@ -2,7 +2,7 @@ const express = require("express")
 
 const router = express.Router()
 
-const brandController = require("../controllers/BrandController")
+const brandController = require("../controllers/api/BrandController")
 
 // ADD BRAND
 router.post("/", brandController.addBrand)

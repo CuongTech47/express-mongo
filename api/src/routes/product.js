@@ -2,7 +2,7 @@ const express = require("express")
 
 const router = express.Router()
 
-const productController = require("../controllers/ProductController")
+const productController = require("../controllers/api/ProductController")
 
 // ADD PRODUCT
 router.post("/", productController.addProduct)

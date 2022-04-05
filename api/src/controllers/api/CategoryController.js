@@ -1,6 +1,6 @@
-const Category = require('../models/category')
+const Category = require('../../models/category')
 
-const Product = require('../models/product')
+const Product = require('../../models/product')
 
 const CategoryController = {
     //ADD CATEGORY
