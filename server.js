@@ -4,7 +4,7 @@ const db = require('./api/src/config/database/db')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
-const bodyParser = require('body-parser')
+
 
 const route = require('./api/src/routes/index')
 
@@ -15,7 +15,7 @@ const port = process.env.PORT || 3030;
 
 //morgan
 app.use(morgan('combined'))
-app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use(express.static('public'))
 
