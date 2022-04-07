@@ -22,4 +22,7 @@ router.delete("/:id", categoryController.deleteCategory)
 //router.get("/random", userController.random);
 // router.get("/page/:page", categoryController.pagination)
 
+
+
+
 module.exports = router

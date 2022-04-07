@@ -2,6 +2,7 @@ const categoryRouter = require('./category')
 const brandRouter = require('./brand')
 const productRouter = require('./product')
 const authRouter = require('./auth')
+const wedRouter = require('./wed')
 function route(app) {
   
   //api
@@ -14,9 +15,7 @@ function route(app) {
     res.send("hello api")
   })
   //www
-  app.use('/',(req,res)=>{
-    res.render("index.ejs")
-  })
+  app.use('/',wedRouter)
 
 }
 

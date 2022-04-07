@@ -14,7 +14,7 @@ const app = express()
 const port = process.env.PORT || 3030;
 
 //morgan
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 
 app.use(express.static('public'))
