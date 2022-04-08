@@ -4,6 +4,8 @@ const db = require('./api/src/config/database/db')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
+const expressLayouts = require('express-ejs-layouts')
+
 
 
 const route = require('./api/src/routes/index')
@@ -20,7 +22,7 @@ const port = process.env.PORT || 3030;
 app.use(express.static('public'))
 
 //ejs
-
+app.use(expressLayouts)
 app.set("view engine", "ejs")
 app.set("views", "./resources/views")
 

@@ -1,47 +1,17 @@
 
-    <section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Danh mục sản phẩm</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<% for(let i = 0; i < category.length; i++) { %>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="/danh-muc-san-pham/<%= category[i]._id %>"><%= category[i].category_name %></a></h4>
-								</div>
-							</div>
-							<% } %>
-						</div><!--/category-products-->
-						<div class="brands_products"><!--brands_products-->
-							<h2>Thương hiệu sản phẩm</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<% for(let i = 0; i < brand.length; i++) { %>
-									<li><a href="/thuong-hieu-san-pham/<%= brand[i]._id %>"> <span class="pull-right">(50)</span><%= brand[i].brand_name %></a></li>
-									<% } %>
-								</ul>
-							</div>
-						</div><!--/brands_products-->
-						
-						
-						
-					
-					</div>
-				</div>
-				<div class="col-sm-9 padding-right">
-                    <div class="features_items"><!--features_items-->
-                        <h2 class="title text-center">Danh mục sản phẩm</h2>
-                        <% for(let i = 0; i < categories.length; i++) { %>
+				
+					<div class="features_items"><!--features_items-->
+                        
+                        <h2 class="title text-center"><%= cat.category_name %></h2>
+                       
+                        <% for(let i = 0; i < pro_cat.length; i++) { %>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
-                                
                                     <div class="single-products">
                                         <div class="productinfo text-center">
                                             <img src="frontend/images/home/product5.jpg" alt="" />
-                                            <h2><%= categories[i].category_desc %> .VND</h2>
-                                            <p>E<%= categories[i].category_name %></p>
+                                            <h2><%= pro_cat[i].product_price %> .VND</h2>
+                                            <p><%= pro_cat[i].product_name %></p>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
                                         </div>
                                         <!-- <div class="product-overlay">
@@ -59,21 +29,15 @@
                                             <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
                                         </ul>
                                     </div>
-                                    
-                                
-                                
                             </div>
                         </div>
                         <% } %>
                         
                         
                     </div><!--features_items-->
-                </div>
 				
-            </div>
-		</div>
-	</section>
+	
 
-
+    
 
 

@@ -11,9 +11,9 @@ const homeController = require('../controllers/www/HomeController')
 //home
 
 
-router.get('/',homeController.index)
 
-router.get('/home',homeController.home)
+
+router.get('/',homeController.index)
 
 
 //danh muc san pham trang chu

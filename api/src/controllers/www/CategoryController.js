@@ -1,18 +1,13 @@
 const Category = require('../../models/category')
 
-
-
 const CategoryController = {
     showCategoryHome : async( req , res) => {
-        const categories = await Category.findById(req.params.id)
-        if(categories.category_status === 0) {
-            res.render('pages/category/show_category',{categories})
-            console.log(categories)
-            
+        const cat = await Category.findById(req.params.id).populate('products')
+        const pro_cat = cat.products
+        if(cat.category_status === 0) {
+            res.render('pages/category/show_category',{pro_cat ,cat})
+            console.log(cat.category_name)
         }
-
-        
     }
 }
-
 module.exports = CategoryController
