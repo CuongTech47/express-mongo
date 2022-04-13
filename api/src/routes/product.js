@@ -1,11 +1,32 @@
 const express = require("express")
-
+const multer = require('multer')
 const router = express.Router()
 
 const productController = require("../controllers/api/ProductController")
+//define storage for the images
 
+const storage = multer.diskStorage({
+    //destination for files
+    destination: function (req, file, callback) {
+      callback(null, 'public/frontend/images/home/');
+    },
+  
+    //add back the extension
+    filename: function (req, file, callback) {
+      callback(null, Date.now() + file.originalname);
+    },
+  });
+  
+  //upload parameters for multer
+  const upload = multer({
+    storage: storage,
+    limits: {
+      fieldSize: 1024 * 1024 * 3,
+    },
+    
+  });
 // ADD PRODUCT
-router.post("/", productController.addProduct)
+router.post("/",upload.single('product_image'),productController.addProduct)
 
 // GET ALL PRODUCTS
 router.get("/", productController.getAllProducts);
@@ -14,7 +35,7 @@ router.get("/", productController.getAllProducts);
 router.get("/:id", productController.getAnProduct);
 
 //UPDATE AN PRODUCT
-router.put("/:id", productController.updateProduct)
+router.put("/:id",upload.single('product_image'), productController.updateProduct)
 
 //DELETE PRODUCT
 router.delete("/:id", productController.deleteProduct)

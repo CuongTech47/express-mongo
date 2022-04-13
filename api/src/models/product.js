@@ -13,8 +13,7 @@ const Product = new Schema({
     },
     product_image:{
         type:String,
-        min:6,
-        max : 255,
+        default: 'placeholder.jpg'
     },
     product_desc:{
         type:String,

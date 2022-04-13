@@ -3,11 +3,21 @@ const Brand = require("../../models/brand");
 const Product = require("../../models/product");
 
 const ProductController = {
+  
   //ADD PRODUCT
   addProduct: async (req, res) => {
     try {
-      const newProduct = new Product(req.body);
-      const savedProduct = await newProduct.save();
+      const newProduct = new Product({
+        product_name : req.body.product_name,
+        product_image : req.file.filename,
+        product_desc : req.body.product_desc,
+        product_status : req.body.product_status,
+        product_price : req.body.product_price,
+        category : req.body.category,
+        brand : req.body.brand
+      })
+      const savedProduct = await newProduct.save()
+      
       if (req.body.category) {
         const category = Category.findById(req.body.category);
         await category.updateOne({ $push: { products: savedProduct._id } });
@@ -44,9 +54,27 @@ const ProductController = {
   //UPDATE PRODUCT
   updateProduct: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
-      await product.updateOne({ $set: req.body });
-      res.status(200).json("Updated successfully!");
+      console.log(req.file)
+      const product = await Product.findById(req.params.id)
+        product_name = req.body.product_name,
+        product_image = req.file.filename,
+        product_desc = req.body.product_desc,
+        product_status = req.body.product_status,
+        product_price = req.body.product_price,
+        category = req.body.category
+        brand = req.body.brand
+       
+       await product.updateOne({ $set: {
+        product_name : req.body.product_name,
+        product_image : req.file.filename,
+        product_desc : req.body.product_desc,
+        product_status : req.body.product_status,
+        product_price : req.body.product_price,
+        category : req.body.category,
+        brand : req.body.brand,
+       } })
+      
+      res.status(200).json("Updated successfully!")
     } catch (err) {
       res.status(500).json(err);
     }
