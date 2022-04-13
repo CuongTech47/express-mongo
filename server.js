@@ -12,7 +12,7 @@ const expressLayouts = require('express-ejs-layouts')
 const route = require('./api/src/routes/index')
 
 
-const morgan = require('morgan')
+
 const app = express()
 const port = process.env.PORT || 3030;
 

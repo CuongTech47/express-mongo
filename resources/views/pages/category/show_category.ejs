@@ -3,8 +3,8 @@
 					<div class="features_items"><!--features_items-->
                         
                         <h2 class="title text-center"><%= cat.category_name %></h2>
-                       
                         <% for(let i = 0; i < pro_cat.length; i++) { %>
+                        <a href="/chi-tiet-san-pham/<%= pro_cat[i]._id %>">
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -31,6 +31,7 @@
                                     </div>
                             </div>
                         </div>
+                        </a>
                         <% } %>
                         
                         

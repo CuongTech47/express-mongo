@@ -13,7 +13,10 @@ const storage = multer.diskStorage({
   
     //add back the extension
     filename: function (req, file, callback) {
-      callback(null, Date.now() + file.originalname);
+      let fileOriginalName = file.originalname
+      let fileStr = fileOriginalName.replace(/\s/g, '')
+
+      callback(null, Date.now() + fileStr);
     },
   });
   
