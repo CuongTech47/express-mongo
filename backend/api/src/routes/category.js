@@ -19,6 +19,9 @@ router.put("/:id", categoryController.updateCategory)
 //DELETE CATEGORY 
 router.delete("/:id", categoryController.deleteCategory)
 
+//GetCategoryPodduct
+
+
 //router.get("/random", userController.random);
 // router.get("/page/:page", categoryController.pagination)
 
