@@ -16,6 +16,11 @@
 
 <script>
 export default {
-    name :'BrandLeft'
+    name :'BrandLeft',
+    data() {
+      return {
+        
+      }
+    },
 }
 </script>
