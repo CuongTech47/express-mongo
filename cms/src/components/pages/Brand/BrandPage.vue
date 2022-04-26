@@ -27,7 +27,7 @@
 
               <!-- ITEMS -->
               <tr v-for="(brand, i) in brands" :key="i">
-                <td>{{ brand.brand_id }}</td>
+                <td>{{ brand._id }}</td>
                 <td class="_table_name">{{ brand.brand_name }}</td>
                 <td v-if="brand.brand_status == 0">An</td>
                 <td v-if="brand.brand_status == 1">Hien thi</td>
@@ -57,8 +57,8 @@
             </FormItem>
             <FormItem label="Trang Thai">
               <Select v-model="data.brand_status" placeholder="chon trang thai hien thi">
-                <Option value="0">An</Option>
-                <Option value="1">Hien Thi</Option>
+                <Option value=0>An</Option>
+                <Option value=1>Hien Thi</Option>
               </Select>
             </FormItem>
           </Form>
@@ -133,6 +133,7 @@ export default {
       isAdding: false,
       brands: [],
       editData: {
+        _id:'',
         brand_name: "",
         brand_desc: "",
         brand_status: "",
@@ -153,7 +154,7 @@ export default {
         return this.e("Brand desc is required");
       if (this.data.brand_status.trim() == "")
         return this.e("Brand status is required");
-      const res = await axios.post("http://localhost:8000/api/v1/brand",this.data);
+      const res = await axios.post("http://localhost:3030/api/v1/brand",this.data);
       if(res.status === 201) {
         this.brands.unshift(res.data.data);
         this.s("Tag has been added successfully!");
@@ -177,7 +178,7 @@ export default {
         return this.e("Brand desc is required");
       if(this.editData.brand_status.trim() == "")
         return this.e("Brand status is required");
-      const res = await axios.patch(`http://localhost:8000/api/v1/brand/${this.editData.brand_id}`,this.editData)
+      const res = await axios.patch(`http://localhost:3030/api/v1/brand/${this.editData._id}`,this.editData)
       if (res.status === 200) {
         this.brands[this.index].brand_name = this.editData.brand_name;
         this.brands[this.index].brand_desc = this.editData.brand_desc;
@@ -209,7 +210,7 @@ export default {
     },
     async delete_brand() {
       this.isDeleing = true;
-      const res = await axios.delete(`http://localhost:8000/api/v1/brand/${this.deleteItem.brand_id}`,this.deleteItem);
+      const res = await axios.delete(`http://localhost:3030/api/v1/brand/${this.deleteItem._id}`,this.deleteItem);
       if (res.status === 200) {
         this.brands.splice(this.deletingIndex, 1);
         this.s("Xoa!");
@@ -221,7 +222,7 @@ export default {
     },
     showDeletingModal(brand, i) {
       let deleteModalObj = {
-        brand_id : brand.brand_id,
+        _id : brand._id,
         brand_name : brand.brand_name,
         brand_desc:brand.brand_desc,
         brand_status:brand.brand_status,
@@ -237,8 +238,9 @@ export default {
     }
   },
   async created() {
-    const res = await axios.get("http://localhost:8000/api/v1/brand");
+    const res = await axios.get("http://localhost:3030/api/v1/brand");
     if (res.status == 200) {
+      console.log(res.data)
       this.brands = res.data.data;
     } else {
       this.swr();

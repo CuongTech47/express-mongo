@@ -1,30 +1,41 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="home">
+    <HomeHeader/>
+    <HomeSlider/>
+     <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="left-sidebar">
+              <CategoryLeft/>
+              <BrandLeft/>
+            </div>
+          </div>
+          <div class="col-sm-9 padding-right">
+            <router-view/>
+          </div>
+        </div>
+      </div>
+    </section>
+    <HomeFooter/>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import HomeHeader from '@/components/HomeHeader.vue'
+import HomeSlider from '@/components/HomeSlider.vue'
+import HomeFooter from '@/components/HomeFooter.vue'
+import CategoryLeft from '@/components/CategoryLeft.vue'
+import BrandLeft from '@/components/BrandLeft.vue'
+export default {
+  components: {
+   HomeHeader,
+   HomeSlider,
+   HomeFooter,
+   CategoryLeft,
+   BrandLeft
+  }
 }
+</script>
 
-nav {
-  padding: 30px;
-}
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

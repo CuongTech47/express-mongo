@@ -74,4 +74,9 @@ const  BrandController = {
 
     
 }
+                                                                                                                                                                                                                                                                                                                         
 module.exports = BrandController
+
+
+
+

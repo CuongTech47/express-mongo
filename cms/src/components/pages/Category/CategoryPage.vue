@@ -27,7 +27,7 @@
 
               <!-- ITEMS -->
               <tr v-for="(cat, i) in cats" :key="i">
-                <td>{{ cat.category_id }}</td>
+                <td>{{ cat._id }}</td>
                 <td class="_table_name">{{ cat.category_name }}</td>
                 <td v-if="cat.category_status == 0">An</td>
                 <td v-if="cat.category_status == 1">Hien thi</td>
@@ -124,6 +124,7 @@ export default {
   data() {
     return {
       data: {
+        _id : '',
         category_name: "",
         category_desc: "",
         category_status: "",
