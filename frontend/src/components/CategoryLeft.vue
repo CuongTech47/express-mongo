@@ -14,7 +14,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    name: 'CategoryLeft'
+    name: 'CategoryLeft',
+    data () {
+    return {
+      data: {
+        category_name: '',
+        category_status: null
+      },
+      cats: []
+    }
+  },
+  async created () {
+    const res = await axios.get('http://localhost:3030/api/v1/category')
+    console.log(res.data.data)
+    if (res.status === 200) {
+      this.cats = res.data.data
+    } else {
+      this.swr()
+    }
+  }
 }
 </script>

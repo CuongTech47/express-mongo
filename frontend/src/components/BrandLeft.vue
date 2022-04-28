@@ -15,12 +15,25 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name :'BrandLeft',
-    data() {
-      return {
-        
-      }
-    },
+    data () {
+    return {
+      data: {
+        brand_name: '',
+        brand_status: null
+      },
+      bras: []
+    }
+  },
+  async created () {
+    const res = await axios.get('http://localhost:3030/api/v1/brand')
+    if (res.status === 200) {
+      this.bras = res.data.data
+    } else {
+      this.swr()
+    }
+  }
 }
 </script>

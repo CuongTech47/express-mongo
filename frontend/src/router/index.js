@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+// import CategoryHomeView from '../views/CategoryHomeView.vue'
+import CategoryItem from '../components/CategoryItem.vue'
+import BrandItem from '../components/BrandItem.vue'
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/danh-muc-san-pham',
+    name: 'categoryItem',
+    component: CategoryItem
   },
   
   // {
@@ -13,11 +20,11 @@ const routes = [
   //   name: 'CategoryView',
   //   component: CategoryView
   // },
-  // {
-  //   path: '/thuong-hieu-san-pham',
-  //   name: 'BrandView',
-  //   component: BrandView
-  // }
+  {
+    path: '/thuong-hieu-san-pham',
+    name: 'brandItem',
+    component: BrandItem
+  }
 ]
 
 const router = createRouter({
